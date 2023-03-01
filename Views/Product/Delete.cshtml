@@ -1,0 +1,104 @@
+﻿@model Beml.ECommerce.App.Models.Product
+
+
+<form method="post" asp-controller="Product" asp-action="Delete">
+    <div class="border-3">
+        @*  <div asp-validation-summary="All" class="text-danger"></div>*@
+        <div class="form-group row">
+           
+                <input hidden asp-for="ProductId" />                
+                <h2 class="text-Info pl-3">Delete Product</h2>
+
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <div class="form-group row py-3">
+                    <div class="col-4">
+                        <label asp-for="Name">Name</label>
+                    </div>
+                    <div class="col-8">
+                        <input readonly asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row py-3">
+                    <div class="col-4">
+                        <label asp-for="Description">Description</label>
+                    </div>
+                    <div class="col-8">
+                        <textarea readonly asp-for="Description" class="form-control summernote"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="form-group row py-3">
+                    <div class="col-4">
+                        <label asp-for="Price">Price</label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Price" readonly class="form-control" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+
+                </div>
+               
+                <div class="form-group row py-3">
+                    <div class="col-4">
+                        <label asp-for="CategoryId">Category</label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="@Model.Category.Name" readonly class="form-control" />
+                        <span asp-validation-for="CategoryId" class="text-danger"></span>
+                    </div>
+                </div>
+                
+                <div class="form-group row py-3">
+                    <div class="col-4">
+                        <label asp-for="ImagePath">Image</label>
+                    </div>
+                    <div class="col-8">
+                        <input type="text" readonly name="files" asp-for="ImagePath" class="form-control" />
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <div class="col-8 offset-4 row">
+
+                        <div class="col">
+
+                            <button type="submit" asp-action="DeleteProduct" asp-route-id="ProductId" class="btn btn-primary w-100">
+                                <i class="fa-solid fa-trash"></i>&nbsp;&nbsp;Delete
+                                </button>
+
+                            
+                        </div>
+                        <div class="col">
+                            <a asp-action="Index" class="btn btn-success w-100">
+                                <i class="fa-solid fa-arrow-left-long"></i>&nbsp;Back
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                @* Keep this empty *@
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    <script>
+        $(document).ready(function () {
+            $('.summernote').summernote({
+                height: 250,
+                disable: true
+            });
+        });
+
+    </script>
+}

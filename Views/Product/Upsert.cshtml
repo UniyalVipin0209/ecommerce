@@ -1,0 +1,150 @@
+﻿@model Beml.ECommerce.App.Models.VM.ProductVM
+
+<form method="post" asp-controller="Product" asp-action="Upsert" enctype="multipart/form-data">
+    <div class="border-3">
+        @*  <div asp-validation-summary="All" class="text-danger"></div>*@
+        <div class="form-group row">
+            @if (Model?.Product?.ProductId != 0)
+            {
+                <input hidden asp-for="Product.ProductId"/>
+                <h2 class="text-Info pl-3">Update Product</h2>
+            }
+            else
+            {
+                <h2 class="text-primary pl-3">Create Product</h2>
+            }
+            
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <div class="form-group row py-3">
+                    <div class="col-4">
+                        <label asp-for="Product.Name">Name</label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Product.Name" class="form-control" />
+                        <span asp-validation-for="Product.Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row py-3">
+                    <div class="col-4">
+                        <label asp-for="Product.Description">Description</label>
+                    </div>
+                    <div class="col-8">
+                        <textarea asp-for="Product.Description" class="form-control summernote"></textarea>
+                        <span asp-validation-for="Product.Description" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="form-group row py-3">
+                    <div class="col-4">
+                        <label asp-for="Product.Price">Price</label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Product.Price" class="form-control" />
+                        <span asp-validation-for="Product.Price" class="text-danger"></span>
+                    </div>
+
+                </div>
+                @*Category Drop-down*@
+                <div class="form-group row py-3">
+                    <div class="col-4">
+                        <label asp-for="Product.CategoryId">Category</label>
+                    </div>
+                    <div class="col-8">
+                        <select asp-for="Product.CategoryId" class="form-control" asp-items="@Model.CategoryListItem">
+                            @*  <select class="form-control" asp-for="CategoryId" asp-items="@ViewBag.CategoryDropDown">*@
+                            @*  <select class="form-control" asp-for="CategoryId" asp-items="@ViewData["CategoryDropDown"] as IEnumerable<SelectListItem>">*@
+                            <option disabled selected>--Select Category--</option>
+                        </select>
+                        <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                @*Category Drop-down*@
+
+                <div class="form-group row py-3">
+                    <div class="col-4">
+                        <label asp-for="Product.ApplicationTypeId">Application</label>
+                    </div>
+                    <div class="col-8">
+                        <select asp-for="Product.ApplicationTypeId" class="form-control" asp-items="@Model.ApplicationListItem">
+                            <option disabled selected>--Select Application--</option>
+                        </select>
+                        <span asp-validation-for="Product.ApplicationTypeId" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                <div class="form-group row py-3">
+                    <div class="col-4">
+                        <label asp-for="Product.ImagePath">Image</label>
+                    </div>
+                    <div class="col-8">
+                        <input type="file" name="files" id="uploadBox" multiple class="form-control" />
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <div class="col-8 offset-4 row">
+
+                        <div class="col">
+                            @if(Model.Product?.ProductId != 0){
+                                <button type="submit" class="btn btn-info w-100">
+                                    <i class="fa-solid fa-pen"></i>&nbsp;&nbsp;Edit
+                                </button>
+                                                           }
+                            else{
+                                <button type="submit" onClick="return ValidateInput()" class="btn btn-primary w-100">
+                                    <i class="fa-solid fa-plus"></i>&nbsp;&nbsp;Create
+                                </button>
+
+                            }
+                        </div>
+                        <div class="col">
+                            <a asp-action="Index" class="btn btn-success w-100">
+                                <i class="fa-solid fa-arrow-left-long"></i>&nbsp;Back
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                @* Keep this empty *@
+                @if (Model?.Product?.ProductId != 0)
+                {
+                    <img src="@WC.ImagePath@Model?.Product?.ImagePath" width="100%" style="border-radius:5px; border:1px solid #bbb" />
+                }
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    @{
+        //<partial name="_ValidationScriptsPartial" />
+    }
+    <script>
+        $(document).ready(function () {
+            $('.summernote').summernote({
+                height:250
+            });
+        });
+        function ValidateInput(){
+            var ele = document.getElementById("uploadBox");
+            if (ele.value == "" || ele.value.length==0) {
+                Swal.fire(
+                    'Error!',
+                    'Please upload an Image!',
+                    'error'
+                );
+                return false;
+            }
+            return true;
+            
+        }
+
+       
+    </script>
+}

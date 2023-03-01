@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Beml.ECommerce.App.props" />
+</Project>

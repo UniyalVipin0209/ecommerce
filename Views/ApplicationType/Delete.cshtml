@@ -1,0 +1,51 @@
+﻿@model Beml.ECommerce.App.Models.ApplicationType
+@{
+    ViewData["Title"] = "Update Application Type";
+}
+
+<form method="post" asp-controller="ApplicationType" asp-action="Delete">
+    <input type="hidden" asp-for="ApplicationId" />
+    <div class="border-3">
+        @*  <div asp-validation-summary="All" class="text-danger"></div>*@
+        <div class="form-group row">
+            <h2 class="text-primary pl-3">Update Application Type</h2>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <div class="form-group row py-3">
+                    <div class="col-4">
+                        <label asp-for="Name">Name</label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Name" readonly class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-8 offset-4 row">
+
+                        <div class="col">
+                             <button type="submit" class="btn btn-primary w-100">
+                                    <i class="fa-solid fa-trash"></i>&nbsp;&nbsp;Delete Confirm
+                                </button>
+                        </div>
+                        <div class="col">
+                            <a asp-action="Index" class="btn btn-success w-100">
+                                <i class="fa-solid fa-arrow-left-long"></i>&nbsp;&nbsp;Back
+                             </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                @* Keep this empty *@
+            </div>
+        </div>
+    </div>
+</form>
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
